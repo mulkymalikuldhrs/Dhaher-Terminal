@@ -6,6 +6,8 @@ import { mochaPlugins } from "@getmocha/vite-plugins";
 export default defineConfig({
   plugins: [...mochaPlugins(process.env), react()],
   server: {
+    host: '0.0.0.0',
+    port: 5173,
     allowedHosts: true,
   },
   build: {

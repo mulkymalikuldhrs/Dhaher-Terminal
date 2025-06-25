@@ -99,7 +99,11 @@ export default function Header() {
               <Activity size={16} />
             </button>
             <NotificationPanel />
-            <button className="p-1.5 hover:bg-[#2d5986] text-[#8da2c0]" title="Settings">
+            <button 
+              onClick={() => window.open('mailto:mulkymalikuldhr@mail.com', '_blank')}
+              className="p-1.5 hover:bg-[#2d5986] text-[#8da2c0]" 
+              title="Contact: mulkymalikuldhr@mail.com"
+            >
               <Settings size={16} />
             </button>
             

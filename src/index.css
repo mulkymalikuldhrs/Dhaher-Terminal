@@ -217,6 +217,95 @@
     font-size: 9px;
     padding: 4px 6px;
   }
+  
+  /* Mobile grid adjustments */
+  .grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+  
+  /* Mobile dashboard adjustments */
+  .fixed.bottom-6.right-6 {
+    bottom: 1rem;
+    right: 1rem;
+    flex-direction: row;
+    space-y: 0;
+    gap: 0.5rem;
+  }
+  
+  .fixed.bottom-6.right-6 button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  /* Mobile header adjustments */
+  .bloomberg-header {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .bloomberg-header .hidden {
+    display: none !important;
+  }
+  
+  /* Mobile sidebar */
+  .w-52 {
+    width: 100% !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .w-52.open {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 640px) {
+  /* Extra small screens */
+  .text-xs {
+    font-size: 0.625rem;
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  .flex-row {
+    flex-direction: column;
+  }
+  
+  /* Mobile chart adjustments */
+  .chart-container {
+    min-height: 300px;
+  }
+  
+  /* Mobile table adjustments */
+  table {
+    font-size: 0.625rem;
+  }
+  
+  th, td {
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Touch-friendly interactions */
+@media (hover: none) and (pointer: coarse) {
+  button, .cursor-pointer {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .p-1 {
+    padding: 0.5rem;
+  }
+  
+  .p-1.5 {
+    padding: 0.625rem;
+  }
 }
 
 /* Scrollbar styling for Bloomberg theme */

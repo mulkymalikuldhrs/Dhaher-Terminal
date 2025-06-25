@@ -1,0 +1,42 @@
+{
+  "name": "mocha-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "date-fns": "^4.1.0",
+    "finnhub": "^1.2.19",
+    "framer-motion": "^12.19.1",
+    "i18next": "^25.2.1",
+    "lightweight-charts": "^5.0.7",
+    "lucide-react": "^0.510.0",
+    "react": "19.0.0",
+    "react-datepicker": "^8.4.0",
+    "react-dom": "19.0.0",
+    "react-grid-layout": "^1.5.1",
+    "react-i18next": "^15.5.3",
+    "react-router-dom": "^7.6.2",
+    "react-toastify": "^11.0.5",
+    "recharts": "^3.0.0",
+    "websocket": "^1.0.35"
+  },
+  "devDependencies": {
+    "@getmocha/vite-plugins": "latest",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.5.3",
+    "vite": "^6.2.1"
+  }
+}

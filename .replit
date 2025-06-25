@@ -1,2 +1,15 @@
 [nix]
 channel = "stable-24_05"
+packages = ["unzipNLS"]
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 44264432
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"Welcome to blocksignal! Please add your application code and update the run command.\""

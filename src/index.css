@@ -192,3 +192,93 @@ html, body, #root {
   background-color: var(--bloomberg-red);
   box-shadow: 0 0 5px var(--bloomberg-red);
 }
+
+/* Bloomberg-style panel styling */
+.bloomberg-panel {
+  @apply bg-gray-900 border border-gray-800 rounded-sm shadow-lg;
+}
+
+.bloomberg-panel-header {
+  @apply bg-gray-800 text-gray-200 font-semibold text-xs uppercase tracking-wider border-b border-gray-700;
+}
+
+/* Institutional data styling */
+.cot-bullish {
+  @apply text-green-400 bg-green-900/20;
+}
+
+.cot-bearish {
+  @apply text-red-400 bg-red-900/20;
+}
+
+.economic-event-high {
+  @apply border-l-4 border-red-500 bg-red-900/10;
+}
+
+.economic-event-medium {
+  @apply border-l-4 border-yellow-500 bg-yellow-900/10;
+}
+
+.economic-event-low {
+  @apply border-l-4 border-gray-500 bg-gray-900/10;
+}
+
+/* SMC Analysis styling */
+.smc-bos {
+  @apply text-blue-400;
+}
+
+.smc-choch {
+  @apply text-purple-400;
+}
+
+.smc-fvg {
+  @apply text-yellow-400;
+}
+
+.smc-orderblock {
+  @apply text-orange-400;
+}
+
+/* Liquidity levels */
+.liquidity-high {
+  @apply text-red-400 font-bold;
+}
+
+.liquidity-medium {
+  @apply text-yellow-400;
+}
+
+.liquidity-low {
+  @apply text-gray-400;
+}
+
+/* News impact styling */
+.news-high-impact {
+  @apply text-red-400 border-red-500;
+}
+
+.news-medium-impact {
+  @apply text-yellow-400 border-yellow-500;
+}
+
+.news-low-impact {
+  @apply text-gray-400 border-gray-500;
+}
+
+/* Institutional vs Retail positioning */
+.institutional-long {
+  @apply text-green-400 bg-green-900/30;
+}
+
+.institutional-short {
+  @apply text-red-400 bg-red-900/30;
+}
+
+.retail-long {
+  @apply text-green-300 bg-green-800/20;
+}
+
+.retail-short {
+  @apply text-red-300 bg-red-800/20;
+}

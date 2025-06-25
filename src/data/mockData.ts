@@ -254,6 +254,25 @@ export const defaultPanels: Panel[] = [
     y: 15,
     w: 6,
     h: 6
+  },
+  {
+    id: 'economic-calendar-panel',
+    type: 'economic_calendar',
+    title: 'Economic Calendar',
+    x: 0,
+    y: 18,
+    w: 6,
+    h: 6
+  },
+  {
+    id: 'cot-panel',
+    type: 'cot',
+    title: 'COT Analysis',
+    assetId: 'eurusd',
+    x: 6,
+    y: 21,
+    w: 6,
+    h: 6
   }
 ];
 

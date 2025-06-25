@@ -63,7 +63,9 @@ export type PanelType =
   | 'sentiment' 
   | 'cot' 
   | 'signals' 
-  | 'market_structure';
+  | 'market_structure'
+  | 'economic_calendar'
+  | 'news';
 
 export interface PanelProps {
   panel: Panel;

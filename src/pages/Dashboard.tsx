@@ -77,6 +77,37 @@ export default function Dashboard() {
       icon: '📱'
     });
   };
+
+  const addNewEconomicCalendarPanel = () => {
+    const newPanel: Panel = {
+      id: `economic-calendar-${Date.now()}`,
+      type: 'economic_calendar',
+      title: 'Economic Calendar',
+      x: 0,
+      y: 0,
+      w: 6,
+      h: 6
+    };
+    
+    setPanels([...panels, newPanel]);
+    toast.success('Economic Calendar panel added');
+  };
+
+  const addNewCOTPanel = () => {
+    const newPanel: Panel = {
+      id: `cot-panel-${Date.now()}`,
+      type: 'cot',
+      title: 'COT Analysis',
+      assetId: 'eurusd',
+      x: 0,
+      y: 0,
+      w: 6,
+      h: 6
+    };
+    
+    setPanels([...panels, newPanel]);
+    toast.success('COT Analysis panel added');
+  };
   
   return (
     <div className="h-screen flex flex-col text-white overflow-hidden" style={{ backgroundColor: 'var(--bloomberg-blue)' }}>

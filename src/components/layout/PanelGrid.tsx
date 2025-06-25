@@ -18,14 +18,14 @@ interface PanelGridProps {
 
 export default function PanelGrid({ panels, assets, onRemovePanel, selectedCategory }: PanelGridProps) {
   const [maximizedPanel, setMaximizedPanel] = useState<string | null>(null);
-  
+
   const getPanelComponent = (panel: Panel) => {
     const commonProps: PanelProps = {
       panel,
       assets,
       onClose: () => onRemovePanel(panel.id)
     };
-    
+
     switch (panel.type) {
       case 'watchlist':
         return <WatchlistPanel {...commonProps} selectedCategory={selectedCategory} />;
@@ -43,7 +43,7 @@ export default function PanelGrid({ panels, assets, onRemovePanel, selectedCateg
         return <div>Unknown panel type</div>;
     }
   };
-  
+
   const toggleMaximize = (panelId: string) => {
     if (maximizedPanel === panelId) {
       setMaximizedPanel(null);
@@ -51,12 +51,12 @@ export default function PanelGrid({ panels, assets, onRemovePanel, selectedCateg
       setMaximizedPanel(panelId);
     }
   };
-  
+
   // If a panel is maximized, show only that panel
   if (maximizedPanel) {
     const panel = panels.find(p => p.id === maximizedPanel);
     if (!panel) return null;
-    
+
     return (
       <div className="fixed inset-0 z-50 p-4 bg-gray-900 bg-opacity-95">
         <div className="absolute top-4 right-4 z-10 flex space-x-2">
@@ -73,7 +73,7 @@ export default function PanelGrid({ panels, assets, onRemovePanel, selectedCateg
       </div>
     );
   }
-  
+
   return (
     <div className="grid grid-cols-12 gap-2 p-2">
       {panels.map(panel => (

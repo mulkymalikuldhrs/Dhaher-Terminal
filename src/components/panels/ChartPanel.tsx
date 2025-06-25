@@ -9,8 +9,9 @@ import {
   SeriesType
 } from 'lightweight-charts';
 import { useChartData } from '../../hooks/useMarketData';
-import { Clock, Maximize2, Minimize2, RefreshCw, ZoomIn, ZoomOut } from 'lucide-react';
+import { Clock, Maximize2, Minimize2, RefreshCw, ZoomIn, ZoomOut, Layers } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { analyzeSMC } from '../../services/institutionalDataService';
 
 export default function ChartPanel({ panel, assets }: PanelProps) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -19,6 +20,8 @@ export default function ChartPanel({ panel, assets }: PanelProps) {
   const [asset, setAsset] = useState<Asset | undefined>(undefined);
   const [timeframe, setTimeframe] = useState<'1m' | '5m' | '15m' | '1h' | '4h' | '1d'>('1d');
   const [fullscreen, setFullscreen] = useState(false);
+  const [smcAnalysis, setSMCAnalysis] = useState<any>(null);
+  const [showSMC, setShowSMC] = useState(true);
   const { chartData, loading, error } = useChartData(panel.assetId || '', timeframe);
 
   // Find and set the asset based on the panel's assetId

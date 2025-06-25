@@ -12,4 +12,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "echo \"Welcome to blocksignal! Please add your application code and update the run command.\""
+args = "npm run dev"

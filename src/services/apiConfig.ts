@@ -1,79 +1,76 @@
+
 // API Configuration and Keys
 // Note: In a production environment, these keys should be stored securely
 // and not exposed in the client-side code
 
 // API keys for production use
 export const API_KEYS = {
-  // FCSAPI for comprehensive market data
-  FCSAPI: "CLfBJUPZohf9lONdOpDQdnd6BRwbgaB",
+  // Alpha Vantage API - Free tier available
+  ALPHA_VANTAGE: "demo",
   
-  // Alpha Vantage API as fallback
-  ALPHA_VANTAGE: "QHZWJNDI1TNNLWV3",
-  
-  // FinnHub API for additional data
+  // Finnhub API - Free tier available
   FINNHUB: "sandbox_c19k5iaad3i8ik9rlhr0",
   
-  // TwelveData for real-time institutional data
-  TWELVE_DATA: "demo",
-  
-  // Polygon.io for market data
-  POLYGON: "demo",
-  
-  // Financial Modeling Prep for fundamentals
-  FMP: "demo",
-  
-  // NewsAPI for economic news
+  // NewsAPI - Free tier available
   NEWS_API: "demo",
   
-  // CoinGecko API for crypto (no key required for basic usage)
+  // CoinGecko API - No key required for basic usage
+  COINGECKO: "",
+  
+  // Federal Reserve Economic Data (FRED) - Free
+  FRED: "",
+  
+  // Exchange Rates API - Free
+  EXCHANGE_RATES: "",
+  
+  // JSONVat for VAT rates - Free
+  JSONVAT: ""
 };
 
 // Base URLs for APIs
 export const API_URLS = {
-  FCSAPI: "https://fcsapi.com/api-v3",
   ALPHA_VANTAGE: "https://www.alphavantage.co/query",
   FINNHUB: "https://finnhub.io/api/v1",
   COINGECKO: "https://api.coingecko.com/api/v3",
-  YAHOO_FINANCE: "https://query1.finance.yahoo.com/v8/finance",
-  TWELVE_DATA: "https://api.twelvedata.com",
-  POLYGON: "https://api.polygon.io",
-  FMP: "https://financialmodelingprep.com/api/v3",
   NEWS_API: "https://newsapi.org/v2",
-  FOREX_FACTORY: "https://nfs.faireconomy.media/ff_calendar_thisweek.json",
-  CFTC_COT: "https://publicreporting.cftc.gov/resource",
-  FXSSI: "https://fxssi.com/api/v1"
+  FRED: "https://api.stlouisfed.org/fred",
+  EXCHANGE_RATES: "https://api.exchangerate-api.com/v4/latest",
+  FIXER: "https://api.fixer.io/latest",
+  CURRENCYLAYER: "https://api.currencylayer.com/live",
+  POLYGON: "https://api.polygon.io",
+  YAHOO_FINANCE_PROXY: "https://query1.finance.yahoo.com/v8/finance/chart",
+  TWELVE_DATA: "https://api.twelvedata.com"
 };
 
 // WebSocket URLs
 export const WEBSOCKET_URLS = {
-  FCSAPI: "wss://fcsapi.com/ws-v3",
   FINNHUB: "wss://ws.finnhub.io"
 };
 
 // Asset type mappings for different APIs
 export const ASSET_TYPE_MAPPINGS = {
   forex_major: {
-    apiSource: "FCSAPI",
-    endpoint: "forex/latest"
+    apiSource: "ALPHA_VANTAGE",
+    endpoint: "FX_INTRADAY"
   },
   forex_cross: {
-    apiSource: "FCSAPI",
-    endpoint: "forex/latest"
+    apiSource: "ALPHA_VANTAGE", 
+    endpoint: "FX_INTRADAY"
   },
   forex_exotic: {
-    apiSource: "FCSAPI",
-    endpoint: "forex/latest"
+    apiSource: "ALPHA_VANTAGE",
+    endpoint: "FX_INTRADAY"
   },
   commodities: {
-    apiSource: "FCSAPI",
-    endpoint: "commodities/latest"
+    apiSource: "YAHOO_FINANCE_PROXY",
+    endpoint: "chart"
   },
   indices: {
-    apiSource: "FCSAPI",
-    endpoint: "stock/indices"
+    apiSource: "YAHOO_FINANCE_PROXY",
+    endpoint: "chart"
   },
   crypto: {
-    apiSource: "FCSAPI",
-    endpoint: "crypto/latest"
+    apiSource: "COINGECKO",
+    endpoint: "coins/markets"
   }
 };

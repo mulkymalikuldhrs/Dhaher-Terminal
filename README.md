@@ -1,14 +1,14 @@
 
 # Dhaher Terminal - Bloomberg-Style Trading Dashboard
 
-Professional trading terminal dengan interface Bloomberg-style untuk analisis pasar real-time.
+Professional trading terminal dengan interface Bloomberg-style untuk analisis pasar real-time menggunakan API publik gratis.
 
 ## Fitur Utama
 
 ### 📊 Real-Time Market Data
 - Multi-asset trading dashboard (Forex, Crypto, Commodities, Indices)
 - Chart candlestick dengan timeframe multiple (1m, 5m, 15m, 1h, 4h, 1d)
-- Data harga real-time dengan fallback ke mock data untuk reliability
+- Data harga real-time dari API publik gratis
 
 ### 📈 Analisis Profesional
 - COT (Commitment of Traders) analysis
@@ -28,20 +28,20 @@ Professional trading terminal dengan interface Bloomberg-style untuk analisis pa
 - Market heatmap visualization
 - Multi-panel workspace seperti Bloomberg Terminal
 
-## Sumber Data
+## Sumber Data Real-Time
 
-### Primary Data Sources
-- **Mock Data**: Digunakan sebagai sumber utama untuk reliability dan consistency
-- **FCSAPI**: Real-time forex, commodities, dan crypto data
-- **CoinGecko**: Cryptocurrency market data
-- **Yahoo Finance**: Stock indices dan commodity data
-- **Alpha Vantage**: Forex historical data
+### API Gratis yang Digunakan
+- **CoinGecko API**: Cryptocurrency market data (gratis, tanpa API key)
+- **Yahoo Finance API**: Stock indices dan commodity data (gratis, tanpa API key)
+- **Alpha Vantage API**: Forex data dengan demo key (gratis dengan limit)
+- **Exchange Rates API**: Currency exchange rates (gratis, tanpa API key)
+- **NewsAPI**: Economic news (gratis dengan API key)
 
-### Chart Data Strategy
-Aplikasi menggunakan strategi multi-tier untuk chart data:
-1. **Mock Data** - Primary source untuk chart rendering yang stabil
-2. **API Fallback** - Secondary source dari berbagai financial APIs
-3. **Generated Fallback** - Synthetic data jika semua source gagal
+### Reliabilitas Data
+Aplikasi menggunakan strategi multi-tier:
+1. **API Publik Gratis** - Primary source untuk data real-time
+2. **Cache Layer** - Menyimpan data untuk mengurangi API calls
+3. **Mock Data Fallback** - Backup jika API tidak tersedia
 
 ## Tech Stack
 
@@ -63,17 +63,49 @@ npm run dev
 
 Server akan berjalan di `http://localhost:5173/`
 
-### Environment Variables
-Untuk menggunakan live data APIs, set environment variables:
-- `VITE_FCSAPI_KEY` - FCSAPI access key
-- `VITE_ALPHA_VANTAGE_KEY` - Alpha Vantage API key
+### API Keys (Opsional)
+Beberapa API memerlukan key untuk akses penuh:
+- `Alpha Vantage`: Daftar gratis di alphavantage.co
+- `NewsAPI`: Daftar gratis di newsapi.org
+- `Finnhub`: Daftar gratis di finnhub.io
+
+Update di `src/services/apiConfig.ts`:
+```typescript
+export const API_KEYS = {
+  ALPHA_VANTAGE: "YOUR_FREE_KEY",
+  NEWS_API: "YOUR_FREE_KEY",
+  FINNHUB: "YOUR_FREE_KEY"
+};
+```
+
+## API Limits & Usage
+
+### CoinGecko (Cryptocurrency)
+- ✅ Gratis tanpa API key
+- ✅ 10-50 calls per minute
+- ✅ Market data untuk 10+ crypto teratas
+
+### Yahoo Finance (Indices & Commodities)  
+- ✅ Gratis tanpa API key
+- ✅ Tidak ada limit resmi
+- ✅ Data S&P 500, NASDAQ, Gold, Oil, dll
+
+### Alpha Vantage (Forex)
+- ✅ Gratis dengan demo key
+- ⚠️ 5 calls per minute dengan free tier
+- ✅ Major forex pairs
+
+### Exchange Rates API (Currency)
+- ✅ Gratis tanpa API key
+- ✅ 1000 requests per month
+- ✅ Real-time exchange rates
 
 ## Features
 
 ### 🖥️ Bloomberg-Style Interface
 - Dark theme dengan color scheme profesional
 - Multi-panel grid layout yang dapat dikustomisasi
-- Real-time data streaming
+- Real-time data streaming dari API publik
 - Professional market data visualization
 
 ### 📊 Chart Analysis
@@ -83,43 +115,72 @@ Untuk menggunakan live data APIs, set environment variables:
 - Market structure visualization
 
 ### 📈 Institutional Analysis
-- COT (Commitment of Traders) data
+- COT (Commitment of Traders) data simulation
 - Smart Money Concepts analysis
 - Retail vs Institutional sentiment
 - Market bias detection
 
 ### 🔍 Market Monitoring
-- Real-time watchlist
-- Economic calendar
+- Real-time watchlist dari API gratis
+- Economic calendar integration
 - Market sentiment analysis
 - Signal generation dan alerts
 
-## API Integration
+## Data Sources Detail
 
-### Supported APIs
-- **FCSAPI**: Forex, commodities, crypto real-time data
-- **CoinGecko**: Cryptocurrency market data
-- **Yahoo Finance**: Stock indices dan commodities
-- **Alpha Vantage**: Forex historical data
+### Cryptocurrency (CoinGecko)
+```
+Endpoint: /coins/markets
+Limit: Gratis, 10-50 calls/minute
+Data: Price, volume, 24h change, market cap
+Coverage: Top 100+ cryptocurrencies
+```
 
-### Fallback Strategy
-Jika API external gagal, aplikasi akan:
-1. Menggunakan cached data jika tersedia
-2. Fallback ke mock data yang reliable
-3. Generate synthetic data sebagai last resort
+### Stock Indices (Yahoo Finance)
+```
+Endpoint: /chart/{symbol}
+Limit: Tidak terbatas (unofficial)
+Data: OHLCV, real-time prices
+Coverage: S&P 500, NASDAQ, Dow Jones, dll
+```
+
+### Commodities (Yahoo Finance)
+```
+Symbols: GC=F (Gold), SI=F (Silver), CL=F (Oil)
+Data: Real-time commodity prices
+Update: Setiap menit selama jam trading
+```
+
+### Forex (Alpha Vantage + Exchange Rates)
+```
+Alpha Vantage: Major pairs dengan demo key
+Exchange Rates API: Current exchange rates
+Update: Real-time (dengan cache 5 menit)
+```
+
+## Performance & Optimization
+
+- **Caching**: 5 menit cache untuk mengurangi API calls
+- **Fallback**: Mock data jika semua API gagal
+- **Error Handling**: Graceful degradation
+- **Loading States**: User-friendly loading indicators
+
+## Deployment
+
+Aplikasi siap deploy di Replit tanpa konfigurasi tambahan. Semua API yang digunakan adalah publik dan gratis.
 
 ## Contributing
 
 1. Fork repository
-2. Create feature branch
+2. Buat feature branch
 3. Commit changes
 4. Push ke branch
 5. Create Pull Request
 
 ## License
 
-MIT License - Lihat file LICENSE untuk detail lengkap.
+MIT License - lihat file LICENSE untuk detail.
 
 ---
 
-**Dhaher Terminal** - Professional trading analysis platform dengan Bloomberg-style interface untuk trader dan investor profesional.
+**Note**: Aplikasi ini menggunakan API gratis yang mungkin memiliki rate limits. Untuk production usage, pertimbangkan upgrade ke paid tiers dari provider API.

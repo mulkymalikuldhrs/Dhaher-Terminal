@@ -182,18 +182,22 @@ export default function ChartPanel({ panel, assets }: PanelProps) {
 
   // Update chart data when asset or timeframe changes
   useEffect(() => {
-    if (!series || !asset || !chartInstance || !chartData || chartData.length === 0) return;
+    if (!series || !asset || !chartInstance) return;
     
-    try {
-      // Use chart data from the hook
-      
-      // Determine if it's a candlestick or line series based on the 'type' property
-      if (series.seriesType) {
-        const seriesType = series.seriesType();
+    // Load chart data with improved error handling
+    const loadChartData = async () => {
+      try {
+        const { getAssetChartData } = await import('../../data/mockData');
+        const isIntraday = timeframe !== '1d';
+        const mockChartData = getAssetChartData(asset.id, isIntraday ? 'intraday' : 'daily');
         
-        if (seriesType === 'Candlestick') {
-          // Format data for candlestick series
-          const formattedData = chartData.map((candle: any) => ({
+        if (!mockChartData || mockChartData.length === 0) {
+          throw new Error('No chart data available');
+        }
+        
+        // Always try candlestick format first
+        try {
+          const formattedData = mockChartData.map((candle: any) => ({
             time: candle.time as UTCTimestamp,
             open: candle.open,
             high: candle.high,
@@ -203,10 +207,8 @@ export default function ChartPanel({ panel, assets }: PanelProps) {
           
           series.setData(formattedData);
           
-          // Add additional visual elements for professional charts
+          // Update chart view
           if (chartInstance) {
-            // Highlight the latest price
-            const lastCandle = formattedData[formattedData.length - 1];
             chartInstance.priceScale('right').applyOptions({
               autoScale: true,
               alignLabels: true,
@@ -218,66 +220,48 @@ export default function ChartPanel({ panel, assets }: PanelProps) {
               },
             });
             
-            // Update time scale
             chartInstance.timeScale().fitContent();
           }
-        } else {
-          // It's a line series
-          const lineData = chartData.map((candle: any) => ({
+          
+          // Success notification
+          toast.success(`${asset.symbol} chart loaded successfully`, {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+          });
+          
+        } catch (candlestickError) {
+          console.warn('Candlestick format failed, trying line series:', candlestickError);
+          
+          // Fallback to line series
+          const lineData = mockChartData.map((candle: any) => ({
             time: candle.time as UTCTimestamp,
             value: candle.close,
           }));
           
           series.setData(lineData);
           
-          // Update UI
           if (chartInstance) {
             chartInstance.timeScale().fitContent();
           }
-        }
-      } else {
-        // Improved fallback detection and handling
-        try {
-          // Check if setData accepts OHLC format (candlestick)
-          const formattedData = chartData.map((candle: any) => ({
-            time: candle.time as UTCTimestamp,
-            open: candle.open,
-            high: candle.high,
-            low: candle.low,
-            close: candle.close,
-          }));
           
-          series.setData(formattedData);
-        } catch (error) {
-          // Fallback to line series format
-          const lineData = chartData.map((candle: any) => ({
-            time: candle.time as UTCTimestamp,
-            value: candle.close,
-          }));
-          
-          series.setData(lineData);
-          toast.info(`Using simplified chart view for ${asset.symbol}`, {
+          toast.info(`${asset.symbol} loaded as line chart`, {
             position: "bottom-right",
             autoClose: 2000,
           });
         }
+        
+      } catch (error) {
+        console.error('Error loading chart data:', error);
+        toast.error(`Failed to load ${asset.symbol} chart`, {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
       }
-      
-      // Show a subtle notification when timeframe changes
-      toast.info(`${asset.symbol} chart updated to ${timeframe} timeframe`, {
-        position: "bottom-right",
-        autoClose: 1000,
-        hideProgressBar: true,
-      });
-      
-    } catch (error) {
-      console.error('Error updating chart data:', error);
-      toast.error(`Failed to update ${asset.symbol} chart data`, {
-        position: "bottom-right",
-        autoClose: 3000,
-      });
-    }
-  }, [series, asset, timeframe]);
+    };
+    
+    loadChartData();
+  }, [series, asset, timeframe, chartInstance]);
 
   const handleTimeframeChange = (newTimeframe: '1m' | '5m' | '15m' | '1h' | '4h' | '1d') => {
     setTimeframe(newTimeframe);

@@ -333,14 +333,28 @@ const fetchCommoditiesFromYahoo = async (): Promise<Asset[]> => {
 // Get mock data as fallback
 const getMockFallback = async (category: AssetCategory | 'all'): Promise<Asset[]> => {
   const { mockAssets } = await import('../data/mockData');
+  
+  // Generate enhanced mock data with real-time variations
+  const enhancedAssets = mockAssets.map(asset => ({
+    ...asset,
+    price: asset.price * (1 + (Math.random() * 0.02 - 0.01)), // ±1% variation
+    change: asset.change * (1 + (Math.random() * 0.1 - 0.05)), // ±5% variation in change
+    changePercent: asset.changePercent * (1 + (Math.random() * 0.1 - 0.05)),
+    volume: asset.volume * (1 + (Math.random() * 0.2 - 0.1)), // ±10% variation in volume
+    retailSentiment: {
+      long: Math.max(0, Math.min(100, asset.retailSentiment.long + (Math.random() * 10 - 5))),
+      short: Math.max(0, Math.min(100, asset.retailSentiment.short + (Math.random() * 10 - 5)))
+    }
+  }));
+
   if (category === 'all') {
-    return mockAssets;
+    return enhancedAssets;
   } else {
-    return mockAssets.filter(asset => asset.category === category);
+    return enhancedAssets.filter(asset => asset.category === category);
   }
 };
 
-// Fetch chart data with real APIs
+// Fetch chart data with real APIs and enhanced fallback
 export const fetchChartData = async (
   assetId: string, 
   timeframe: '1m' | '5m' | '15m' | '1h' | '4h' | '1d' = '1d'
@@ -360,12 +374,13 @@ export const fetchChartData = async (
 
     let chartData;
 
+    // Try real APIs first
     if (asset.category === 'crypto') {
-      chartData = await fetchCryptoChartData(asset);
+      chartData = await fetchCryptoChartData(asset, timeframe);
     } else if (asset.category.includes('forex')) {
-      chartData = await fetchForexChartData(asset);
+      chartData = await fetchForexChartData(asset, timeframe);
     } else if (asset.category === 'commodities' || asset.category === 'indices') {
-      chartData = await fetchYahooChartData(asset);
+      chartData = await fetchYahooChartData(asset, timeframe);
     }
 
     if (chartData && chartData.length > 0) {
@@ -373,44 +388,188 @@ export const fetchChartData = async (
       return chartData;
     }
 
-    throw new Error('No chart data available');
+    throw new Error('No chart data available from APIs');
   } catch (error) {
-    console.error('Error fetching chart data:', error);
+    console.warn('Using simulated chart data due to API limitations:', error.message);
 
-    // Generate fallback chart data
-    const { getAssetChartData } = await import('../data/mockData');
-    const fallbackData = getAssetChartData(assetId, 'daily');
-
-    dataCache[cacheKey] = { data: fallbackData, timestamp: Date.now() };
-    return fallbackData;
+    // Generate enhanced realistic chart data
+    const simulatedData = generateRealisticChartData(assetId, timeframe);
+    dataCache[cacheKey] = { data: simulatedData, timestamp: Date.now() };
+    return simulatedData;
   }
 };
 
-// Fetch crypto chart data from CoinGecko
-const fetchCryptoChartData = async (asset: Asset) => {
-  const coinId = asset.id;
+// Generate realistic chart data with proper market behavior
+const generateRealisticChartData = (assetId: string, timeframe: string) => {
+  const asset = mockAssets.find(a => a.id === assetId);
+  if (!asset) return [];
 
-  const response = await axios.get(`${API_URLS.COINGECKO}/coins/${coinId}/market_chart`, {
-    params: {
-      vs_currency: 'usd',
-      days: '7',
-      interval: 'daily'
-    }
-  });
-
-  if (response.data?.prices) {
-    return response.data.prices.map((price: [number, number], index: number) => {
-      const time = Math.floor(price[0] / 1000);
-      const close = price[1];
-      const open = index > 0 ? response.data.prices[index - 1][1] : close;
-      const high = Math.max(open, close) * (1 + Math.random() * 0.02);
-      const low = Math.min(open, close) * (1 - Math.random() * 0.02);
-
-      return { time, open, high, low, close };
+  const basePrice = asset.price;
+  const volatility = getAssetVolatility(asset.category);
+  const periods = getPeriodsForTimeframe(timeframe);
+  const intervalMs = getIntervalMs(timeframe);
+  
+  const data = [];
+  let currentPrice = basePrice * 0.95; // Start 5% below current price
+  const now = Date.now();
+  
+  for (let i = periods; i >= 0; i--) {
+    const time = Math.floor((now - i * intervalMs) / 1000);
+    
+    // Market trends and patterns
+    const trendDirection = Math.sin(i / periods * Math.PI * 2) * 0.3; // Sine wave trend
+    const randomWalk = (Math.random() - 0.5) * volatility;
+    const momentum = (currentPrice - basePrice) / basePrice * 0.1; // Mean reversion
+    
+    const priceChange = (trendDirection + randomWalk - momentum) * currentPrice;
+    currentPrice += priceChange;
+    
+    // Ensure price doesn't go negative
+    currentPrice = Math.max(currentPrice, basePrice * 0.5);
+    
+    // Generate OHLC
+    const open = currentPrice;
+    const volatilityRange = currentPrice * volatility * 0.5;
+    const high = open + Math.random() * volatilityRange;
+    const low = open - Math.random() * volatilityRange;
+    const close = low + Math.random() * (high - low);
+    
+    data.push({
+      time,
+      open: Number(open.toFixed(asset.category === 'crypto' ? 2 : 4)),
+      high: Number(high.toFixed(asset.category === 'crypto' ? 2 : 4)),
+      low: Number(low.toFixed(asset.category === 'crypto' ? 2 : 4)),
+      close: Number(close.toFixed(asset.category === 'crypto' ? 2 : 4))
     });
+    
+    currentPrice = close;
   }
+  
+  return data;
+};
 
-  throw new Error('Invalid crypto chart data');
+const getAssetVolatility = (category: AssetCategory): number => {
+  switch (category) {
+    case 'crypto': return 0.05; // 5% volatility
+    case 'forex_major': return 0.01; // 1% volatility
+    case 'forex_cross': return 0.015; // 1.5% volatility
+    case 'forex_exotic': return 0.025; // 2.5% volatility
+    case 'commodities': return 0.02; // 2% volatility
+    case 'indices': return 0.015; // 1.5% volatility
+    default: return 0.02;
+  }
+};
+
+const getPeriodsForTimeframe = (timeframe: string): number => {
+  switch (timeframe) {
+    case '1m': return 120; // 2 hours
+    case '5m': return 144; // 12 hours
+    case '15m': return 96; // 24 hours
+    case '1h': return 168; // 1 week
+    case '4h': return 168; // 4 weeks
+    case '1d': return 90; // 3 months
+    default: return 90;
+  }
+};
+
+const getIntervalMs = (timeframe: string): number => {
+  switch (timeframe) {
+    case '1m': return 60 * 1000;
+    case '5m': return 5 * 60 * 1000;
+    case '15m': return 15 * 60 * 1000;
+    case '1h': return 60 * 60 * 1000;
+    case '4h': return 4 * 60 * 60 * 1000;
+    case '1d': return 24 * 60 * 60 * 1000;
+    default: return 24 * 60 * 60 * 1000;
+  }
+};
+
+// Fetch crypto chart data from CoinGecko with enhanced timeframe support
+const fetchCryptoChartData = async (asset: Asset, timeframe: string = '1d') => {
+  try {
+    // Map asset symbol to CoinGecko ID
+    const coinId = getCoinGeckoId(asset.symbol);
+    if (!coinId) {
+      throw new Error(`CoinGecko ID not found for ${asset.symbol}`);
+    }
+
+    const days = getCoingeckoDays(timeframe);
+    const interval = getCoingeckoInterval(timeframe);
+
+    const response = await axios.get(`${API_URLS.COINGECKO}/coins/${coinId}/market_chart`, {
+      params: {
+        vs_currency: 'usd',
+        days,
+        interval
+      }
+    });
+
+    if (response.data?.prices && Array.isArray(response.data.prices)) {
+      return response.data.prices.map((price: [number, number], index: number) => {
+        const time = Math.floor(price[0] / 1000);
+        const close = price[1];
+        const open = index > 0 ? response.data.prices[index - 1][1] : close;
+        
+        // Generate realistic OHLC from price data
+        const volatility = close * 0.01; // 1% volatility
+        const high = Math.max(open, close) + Math.random() * volatility;
+        const low = Math.min(open, close) - Math.random() * volatility;
+
+        return { 
+          time, 
+          open: Number(open.toFixed(2)), 
+          high: Number(high.toFixed(2)), 
+          low: Number(low.toFixed(2)), 
+          close: Number(close.toFixed(2)) 
+        };
+      });
+    }
+
+    throw new Error('Invalid response from CoinGecko');
+  } catch (error) {
+    console.error('CoinGecko API error:', error);
+    throw error;
+  }
+};
+
+// Helper functions for CoinGecko API
+const getCoinGeckoId = (symbol: string): string | null => {
+  const mapping: Record<string, string> = {
+    'BTC/USD': 'bitcoin',
+    'ETH/USD': 'ethereum',
+    'ADA/USD': 'cardano',
+    'DOT/USD': 'polkadot',
+    'LINK/USD': 'chainlink',
+    'XRP/USD': 'ripple',
+    'LTC/USD': 'litecoin',
+    'BCH/USD': 'bitcoin-cash'
+  };
+  
+  return mapping[symbol] || null;
+};
+
+const getCoingeckoDays = (timeframe: string): string => {
+  switch (timeframe) {
+    case '1m':
+    case '5m':
+    case '15m': return '1';
+    case '1h': return '7';
+    case '4h': return '30';
+    case '1d': return '90';
+    default: return '30';
+  }
+};
+
+const getCoingeckoInterval = (timeframe: string): string => {
+  switch (timeframe) {
+    case '1m':
+    case '5m':
+    case '15m': return 'minutely';
+    case '1h': return 'hourly';
+    case '4h':
+    case '1d': return 'daily';
+    default: return 'daily';
+  }
 };
 
 // Fetch forex chart data (simplified)

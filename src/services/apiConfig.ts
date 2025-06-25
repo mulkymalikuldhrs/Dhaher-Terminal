@@ -39,7 +39,10 @@ export const API_URLS = {
   CURRENCYLAYER: "https://api.currencylayer.com/live",
   POLYGON: "https://api.polygon.io",
   YAHOO_FINANCE_PROXY: "https://query1.finance.yahoo.com/v8/finance/chart",
-  TWELVE_DATA: "https://api.twelvedata.com"
+  TWELVE_DATA: "https://api.twelvedata.com",
+  CFTC_COT: "https://publicreporting.cftc.gov/resource",
+  FOREX_FACTORY: "https://nfs.faireconomy.media/ff_calendar_thisweek.json",
+  ECONOMIC_CALENDAR: "https://api.forexfactory.com/calendar"
 };
 
 // WebSocket URLs

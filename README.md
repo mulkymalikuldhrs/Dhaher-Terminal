@@ -3,6 +3,10 @@
 
 Professional trading terminal dengan interface Bloomberg-style untuk analisis pasar real-time menggunakan API publik gratis.
 
+**Dibuat oleh [Mulky Malikul Dhaher](mailto:mulkymalikuldhr@mail.com) di Indonesia dengan ❤️**
+
+> "Democratizing professional trading tools for everyone"
+
 ## Fitur Utama
 
 ### 📊 Real-Time Market Data
@@ -183,4 +187,25 @@ MIT License - lihat file LICENSE untuk detail.
 
 ---
 
+## Pembuat
+
+**Mulky Malikul Dhaher**  
+🇮🇩 Indonesia  
+📧 [mulkymalikuldhr@mail.com](mailto:mulkymalikuldhr@mail.com)  
+🐙 [GitHub](https://github.com/mulkymalikuldhrs)
+
+Dibuat dengan cinta dan dedikasi untuk memberdayakan trader Indonesia dengan tools profesional yang mudah diakses.
+
+---
+
 **Note**: Aplikasi ini menggunakan API gratis yang mungkin memiliki rate limits. Untuk production usage, pertimbangkan upgrade ke paid tiers dari provider API.
+
+## Dukungan
+
+Jika Anda merasa terbantu dengan aplikasi ini, silakan:
+- ⭐ Star repository ini
+- 🍴 Fork untuk kontribusi
+- 🐛 Report bugs melalui GitHub Issues
+- 💡 Saran fitur melalui GitHub Discussions
+
+**Made with ❤️ in Indonesia**

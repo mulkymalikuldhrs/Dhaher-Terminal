@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Dashboard from './pages/Dashboard';
 import './index.css';
 import { NotificationProvider } from './components/notifications/NotificationService';
+import { AuthProvider } from './contexts/AuthContext';
 
 export function App() {
   useEffect(() => {
@@ -29,9 +30,11 @@ export function App() {
   }, []);
 
   return (
-    <NotificationProvider>
-      <Dashboard />
-    </NotificationProvider>
+    <AuthProvider>
+      <NotificationProvider>
+        <Dashboard />
+      </NotificationProvider>
+    </AuthProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 
-# Dhaher Terminal - Bloomberg-Style Trading Dashboard
+# Dhaher Terminal - Institusional-Style Trading Dashboard
 
 Professional trading terminal dengan interface Bloomberg-style untuk analisis pasar real-time menggunakan API publik gratis.
 
@@ -184,3 +184,6 @@ MIT License - lihat file LICENSE untuk detail.
 ---
 
 **Note**: Aplikasi ini menggunakan API gratis yang mungkin memiliki rate limits. Untuk production usage, pertimbangkan upgrade ke paid tiers dari provider API.
+
+Dibuat dengan ❤️ oleh Mulky Malikul Dhaher
+dari Indonesia 🇮🇩

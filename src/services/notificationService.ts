@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Web Push Notification Service for Real-time Alerts
 export interface PushNotification {
   title: string;

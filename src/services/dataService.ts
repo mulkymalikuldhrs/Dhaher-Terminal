@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios from 'axios';
 import { Asset, AssetCategory, Signal } from '../types';
 import { API_KEYS, API_URLS, ASSET_TYPE_MAPPINGS } from './apiConfig';

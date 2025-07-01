@@ -1,4 +1,3 @@
-
 # Dhaher Terminal - Bloomberg-Style Trading Dashboard
 
 Professional trading terminal dengan interface Bloomberg-style untuk analisis pasar real-time menggunakan API publik gratis.
@@ -13,11 +12,13 @@ Professional trading terminal dengan interface Bloomberg-style untuk analisis pa
 - Multi-asset trading dashboard (Forex, Crypto, Commodities, Indices)
 - Chart candlestick dengan timeframe multiple (1m, 5m, 15m, 1h, 4h, 1d)
 - Data harga real-time dari API publik gratis
+- NEW: Order Flow / Cluster Delta heatmap untuk memvisualisasikan delta bid-ask di setiap level harga
 
 ### 📈 Analisis Profesional
 - COT (Commitment of Traders) analysis
 - Smart Money Concepts (SMC) analysis
 - Market structure analysis dengan bias detection
+- Order Flow (Cluster Delta) untuk menganalisis tekanan beli vs jual secara granular
 - Economic calendar integration
 
 ### 🔔 Smart Notifications
@@ -30,6 +31,7 @@ Professional trading terminal dengan interface Bloomberg-style untuk analisis pa
 - Retail sentiment tracking
 - Institutional positioning analysis
 - Market heatmap visualization
+- Order Flow Cluster Delta panel (mirip footprint chart) untuk semua aset
 - Multi-panel workspace seperti Bloomberg Terminal
 
 ## Sumber Data Real-Time
@@ -40,6 +42,7 @@ Professional trading terminal dengan interface Bloomberg-style untuk analisis pa
 - **Alpha Vantage API**: Forex data dengan demo key (gratis dengan limit)
 - **Exchange Rates API**: Currency exchange rates (gratis, tanpa API key)
 - **NewsAPI**: Economic news (gratis dengan API key)
+- **Binance Aggregated Trades (WebSocket)**: Sumber volume order flow (hanya pair crypto populer)
 
 ### Reliabilitas Data
 Aplikasi menggunakan strategi multi-tier:
@@ -51,7 +54,7 @@ Aplikasi menggunakan strategi multi-tier:
 
 - **Frontend**: React + TypeScript + Vite
 - **Styling**: Tailwind CSS
-- **Charts**: Lightweight Charts (TradingView)
+- **Charts**: Lightweight Charts (TradingView) + Custom Order Flow Heatmap (Tailwind CSS)
 - **State Management**: React Hooks
 - **Notifications**: React Toastify
 - **HTTP Client**: Axios
@@ -123,6 +126,7 @@ export const API_KEYS = {
 - Smart Money Concepts analysis
 - Retail vs Institutional sentiment
 - Market bias detection
+- Order Flow Delta analysis untuk mendeteksi imbalance di bid/ask
 
 ### 🔍 Market Monitoring
 - Real-time watchlist dari API gratis
@@ -165,6 +169,7 @@ Update: Real-time (dengan cache 5 menit)
 ## Performance & Optimization
 
 - **Caching**: 5 menit cache untuk mengurangi API calls
+- **Lazy Loading**: Panel Order Flow akan memuat data hanya saat dibuka untuk efisiensi
 - **Fallback**: Mock data jika semua API gagal
 - **Error Handling**: Graceful degradation
 - **Loading States**: User-friendly loading indicators

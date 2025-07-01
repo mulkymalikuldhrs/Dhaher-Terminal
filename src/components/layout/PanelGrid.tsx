@@ -9,6 +9,7 @@ import MarketStructurePanel from '../panels/MarketStructurePanel';
 import HeatmapPanel from '../panels/HeatmapPanel';
 import EconomicCalendarPanel from '../panels/EconomicCalendarPanel';
 import COTPanel from '../panels/COTPanel';
+import OrderFlowPanel from '../panels/OrderFlowPanel';
 import { Asset, AssetCategory } from '../../types';
 
 interface PanelGridProps {
@@ -45,6 +46,8 @@ export default function PanelGrid({ panels, assets, onRemovePanel, selectedCateg
         return <EconomicCalendarPanel {...commonProps} />;
       case 'cot':
         return <COTPanel {...commonProps} />;
+      case 'orderflow':
+        return <OrderFlowPanel {...commonProps} />;
       default:
         return (
           <div className="h-full flex items-center justify-center bloomberg-panel">

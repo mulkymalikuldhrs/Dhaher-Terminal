@@ -1,189 +1,360 @@
+# 🚀 Dhaher Terminal Pro v2.0 - Advanced Trading Terminal
 
-# Dhaher Terminal - Institusional-Style Trading Dashboard
+**Professional Bloomberg-style trading dashboard with AI-powered analytics and real-time market data**
 
-Professional trading terminal dengan interface Bloomberg-style untuk analisis pasar real-time menggunakan API publik gratis.
+> 🎯 **Major Upgrade Complete!** - Now featuring enhanced API integrations, modern React architecture, and advanced trading tools.
 
-## Fitur Utama
+## ✨ What's New in v2.0
 
-### 📊 Real-Time Market Data
-- Multi-asset trading dashboard (Forex, Crypto, Commodities, Indices)
-- Chart candlestick dengan timeframe multiple (1m, 5m, 15m, 1h, 4h, 1d)
-- Data harga real-time dari API publik gratis
+### 🏗️ **Complete Architecture Overhaul**
+- **Modern React 19** with TypeScript 5.7
+- **Zustand State Management** with persistence and devtools
+- **Enhanced Error Handling** with circuit breakers and retry logic
+- **Framer Motion Animations** for smooth UI interactions
+- **Vite 6** for lightning-fast development
 
-### 📈 Analisis Profesional
-- COT (Commitment of Traders) analysis
-- Smart Money Concepts (SMC) analysis
-- Market structure analysis dengan bias detection
-- Economic calendar integration
+### 📊 **Advanced Market Data Engine**
+- **Multi-API Integration** with automatic failover
+- **Rate Limiting & Caching** for optimal performance  
+- **Real-time WebSocket** connections
+- **Smart Data Aggregation** from 10+ sources
+- **Historical Data** with multiple timeframes
 
-### 🔔 Smart Notifications
-- Real-time price alerts
-- Signal notifications
-- Market sentiment alerts
-- Economic news notifications
+### 🤖 **AI-Powered Features**
+- **Intelligent Signal Generation** with confidence scoring
+- **Sentiment Analysis** from news and social media
+- **Pattern Recognition** for market structure analysis
+- **Risk Assessment** with dynamic alerts
 
-### 🎯 Trading Tools
-- Retail sentiment tracking
-- Institutional positioning analysis
-- Market heatmap visualization
-- Multi-panel workspace seperti Bloomberg Terminal
+### 🔌 **Enhanced API Integrations**
 
-## Sumber Data Real-Time
+#### Primary Data Sources (All Free Tier)
+- **CoinGecko** - Cryptocurrency data (10-50 calls/min)
+- **Twelve Data** - Forex, stocks, indices (800 calls/day)
+- **Yahoo Finance** - Real-time market data (unlimited)
+- **Exchange Rates API** - Currency data (1500 calls/month)
+- **Binance** - Crypto market data & WebSocket feeds
 
-### API Gratis yang Digunakan
-- **CoinGecko API**: Cryptocurrency market data (gratis, tanpa API key)
-- **Yahoo Finance API**: Stock indices dan commodity data (gratis, tanpa API key)
-- **Alpha Vantage API**: Forex data dengan demo key (gratis dengan limit)
-- **Exchange Rates API**: Currency exchange rates (gratis, tanpa API key)
-- **NewsAPI**: Economic news (gratis dengan API key)
+#### Advanced Data Sources
+- **Fear & Greed Index** - Market sentiment indicators
+- **Economic Calendar** - Major economic events
+- **NewsAPI** - Financial news with sentiment analysis
+- **Reddit/Social** - Social sentiment tracking
 
-### Reliabilitas Data
-Aplikasi menggunakan strategi multi-tier:
-1. **API Publik Gratis** - Primary source untuk data real-time
-2. **Cache Layer** - Menyimpan data untuk mengurangi API calls
-3. **Mock Data Fallback** - Backup jika API tidak tersedia
+### 🏪 **Professional Trading Panels**
 
-## Tech Stack
+#### 📈 **Advanced Chart Panel**
+- **TradingView Integration** with 100+ indicators
+- **Multi-timeframe Analysis** (1m to 1M)
+- **Smart Money Concepts** visualization
+- **Support/Resistance** detection
+- **Volume Profile** analysis
 
-- **Frontend**: React + TypeScript + Vite
-- **Styling**: Tailwind CSS
-- **Charts**: Lightweight Charts (TradingView)
-- **State Management**: React Hooks
-- **Notifications**: React Toastify
-- **HTTP Client**: Axios
+#### 📋 **Enhanced Watchlist**
+- **Dynamic Asset Discovery** across all markets
+- **Custom Alerts** with WhatsApp integration  
+- **Performance Metrics** and statistics
+- **Correlation Analysis** between assets
 
-## Installation
+#### 🧠 **Market Sentiment Dashboard**
+- **Fear & Greed Index** tracking
+- **Social Media Sentiment** aggregation
+- **News Sentiment Analysis** with NLP
+- **Institutional vs Retail** positioning
+
+#### 🎯 **Trading Signals Engine**
+- **Multi-strategy Signals** with backtesting
+- **Confidence Scoring** (1-100%)
+- **Risk/Reward Analysis** for each signal
+- **Performance Tracking** and analytics
+
+#### 🗞️ **Financial News Center**
+- **Real-time News** from major sources
+- **Sentiment Classification** (Bullish/Bearish/Neutral)
+- **Impact Assessment** on market movements
+- **Custom News Filters** by category/source
+
+#### 📅 **Economic Calendar**
+- **High-Impact Events** tracking
+- **Forecast vs Actual** comparisons
+- **Currency Impact** analysis
+- **Historical Event** outcomes
+
+#### 🔥 **Market Heatmap**
+- **Real-time Performance** visualization
+- **Sector Analysis** and rotation
+- **Volatility Mapping** across markets
+- **Correlation Heatmaps**
+
+#### 📊 **COT Analysis Panel**
+- **Commitment of Traders** data
+- **Institutional Positioning** analysis
+- **Sentiment Divergence** detection
+- **Historical COT** patterns
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Node.js 18+** 
+- **npm 9+**
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/dhaher-terminal-pro.git
+cd dhaher-terminal-pro
+
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-## Development
+### 🔧 Configuration
 
-Server akan berjalan di `http://localhost:5173/`
+#### API Keys (Optional - All Have Free Tiers)
+Create a `.env.local` file for enhanced features:
 
-### API Keys (Opsional)
-Beberapa API memerlukan key untuk akses penuh:
-- `Alpha Vantage`: Daftar gratis di alphavantage.co
-- `NewsAPI`: Daftar gratis di newsapi.org
-- `Finnhub`: Daftar gratis di finnhub.io
-
-Update di `src/services/apiConfig.ts`:
-```typescript
-export const API_KEYS = {
-  ALPHA_VANTAGE: "YOUR_FREE_KEY",
-  NEWS_API: "YOUR_FREE_KEY",
-  FINNHUB: "YOUR_FREE_KEY"
-};
+```env
+# Optional API Keys for Enhanced Features
+VITE_ALPHA_VANTAGE_KEY=your_free_key_here
+VITE_NEWS_API_KEY=your_free_key_here  
+VITE_FINNHUB_KEY=your_free_key_here
+VITE_TWELVE_DATA_KEY=your_free_key_here
 ```
 
-## API Limits & Usage
+**Get Free API Keys:**
+- [Alpha Vantage](https://www.alphavantage.co/support/#api-key) - 25 requests/day
+- [NewsAPI](https://newsapi.org/register) - 1000 requests/month  
+- [Finnhub](https://finnhub.io/register) - 60 calls/minute
+- [Twelve Data](https://twelvedata.com/pricing) - 800 calls/day
 
-### CoinGecko (Cryptocurrency)
-- ✅ Gratis tanpa API key
-- ✅ 10-50 calls per minute
-- ✅ Market data untuk 10+ crypto teratas
+## 📚 Architecture Overview
 
-### Yahoo Finance (Indices & Commodities)  
-- ✅ Gratis tanpa API key
-- ✅ Tidak ada limit resmi
-- ✅ Data S&P 500, NASDAQ, Gold, Oil, dll
+### 🏗️ **Technology Stack**
 
-### Alpha Vantage (Forex)
-- ✅ Gratis dengan demo key
-- ⚠️ 5 calls per minute dengan free tier
-- ✅ Major forex pairs
+#### Frontend Framework
+- **React 19** - Latest React with concurrent features
+- **TypeScript 5.7** - Type-safe development
+- **Vite 6** - Ultra-fast build tool
+- **Tailwind CSS** - Utility-first styling
 
-### Exchange Rates API (Currency)
-- ✅ Gratis tanpa API key
-- ✅ 1000 requests per month
-- ✅ Real-time exchange rates
+#### State Management  
+- **Zustand** - Lightweight state management
+- **Immer** - Immutable state updates
+- **React Query** - Server state management
+- **Persistence** - Local storage integration
 
-## Features
+#### UI Components
+- **Framer Motion** - Smooth animations
+- **Radix UI** - Accessible primitives  
+- **Lucide Icons** - Beautiful icon set
+- **React Grid Layout** - Draggable panels
 
-### 🖥️ Bloomberg-Style Interface
-- Dark theme dengan color scheme profesional
-- Multi-panel grid layout yang dapat dikustomisasi
-- Real-time data streaming dari API publik
-- Professional market data visualization
+#### Data & APIs
+- **Axios** - HTTP client with interceptors
+- **WebSocket** - Real-time data feeds
+- **Chart.js** - Advanced charting
+- **TradingView** - Professional charts
 
-### 📊 Chart Analysis
-- Candlestick charts dengan zoom dan pan
-- Multiple timeframes
-- Technical analysis indicators
-- Market structure visualization
+### 🔄 **Data Flow Architecture**
 
-### 📈 Institutional Analysis
-- COT (Commitment of Traders) data simulation
-- Smart Money Concepts analysis
-- Retail vs Institutional sentiment
-- Market bias detection
-
-### 🔍 Market Monitoring
-- Real-time watchlist dari API gratis
-- Economic calendar integration
-- Market sentiment analysis
-- Signal generation dan alerts
-
-## Data Sources Detail
-
-### Cryptocurrency (CoinGecko)
 ```
-Endpoint: /coins/markets
-Limit: Gratis, 10-50 calls/minute
-Data: Price, volume, 24h change, market cap
-Coverage: Top 100+ cryptocurrencies
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Data Sources  │───▶│  Data Service   │───▶│  Zustand Store  │
+│  (10+ APIs)     │    │  (Aggregation)  │    │  (State Mgmt)   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                ▲                       │
+                                │                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│     Cache       │◀───│  Error Handler  │    │  React Components│
+│  (5min TTL)     │    │ (Circuit Breaker)│    │   (UI Panels)   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-### Stock Indices (Yahoo Finance)
+### 🛡️ **Reliability Features**
+
+#### **Error Handling**
+- **Circuit Breaker Pattern** - Prevents API overload
+- **Exponential Backoff** - Smart retry mechanism  
+- **Graceful Degradation** - Fallback to cached data
+- **User-Friendly Errors** - Clear error messages
+
+#### **Performance Optimization**
+- **Smart Caching** - Multi-level caching strategy
+- **Rate Limiting** - Respects API limits automatically
+- **Lazy Loading** - Components load on demand
+- **Code Splitting** - Optimized bundle sizes
+
+#### **Data Integrity**
+- **Type Safety** - Full TypeScript coverage
+- **Data Validation** - Runtime type checking
+- **Fallback Data** - Mock data when APIs fail
+- **Consistency** - Cross-component data sync
+
+## 🎨 **UI/UX Features**
+
+### 🎯 **Bloomberg-Style Interface**
+- **Professional Dark Theme** with Bloomberg colors
+- **Multi-Panel Layout** - Fully customizable workspace
+- **Real-time Updates** - Live data streaming
+- **Responsive Design** - Works on all screen sizes
+
+### ⚡ **Performance Optimizations**
+- **Virtual Scrolling** for large datasets
+- **Memoized Components** prevent unnecessary re-renders
+- **Optimized Re-renders** with selective subscriptions
+- **Bundle Splitting** for faster loading
+
+### 🔄 **Real-time Features**
+- **Live Price Updates** every 60 seconds
+- **WebSocket Connections** for instant data
+- **Push Notifications** for important events
+- **Auto-refresh** with configurable intervals
+
+## � **Integrations & Notifications**
+
+### 📲 **WhatsApp Integration**
+- **Signal Alerts** - Get trading signals instantly
+- **Price Alerts** - Custom price level notifications
+- **News Updates** - Important market news
+- **Status Updates** - System health notifications
+
+### � **Advanced Notifications**
+- **Smart Alerts** - AI-powered significance detection
+- **Multi-channel** - Toast, email, WhatsApp support
+- **Customizable** - Set your own alert criteria
+- **Priority Levels** - High/Medium/Low classifications
+
+## 🧪 **Testing & Quality Assurance**
+
+### 🔬 **Testing Suite**
+```bash
+# Run all tests
+npm test
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests in watch mode
+npm run test:watch
 ```
-Endpoint: /chart/{symbol}
-Limit: Tidak terbatas (unofficial)
-Data: OHLCV, real-time prices
-Coverage: S&P 500, NASDAQ, Dow Jones, dll
+
+### 📊 **Performance Monitoring**
+```bash
+# Analyze bundle size
+npm run analyze
+
+# Performance profiling
+npm run profile
+
+# Lighthouse audit
+npm run audit
 ```
 
-### Commodities (Yahoo Finance)
+## 🚀 **Deployment Options**
+
+### 🌐 **Recommended Platforms**
+- **Vercel** - Zero-config deployment
+- **Netlify** - Automated deployments  
+- **Railway** - Full-stack hosting
+- **AWS Amplify** - Enterprise hosting
+
+### 🐳 **Docker Deployment**
+```dockerfile
+# Dockerfile included for containerization
+docker build -t dhaher-terminal .
+docker run -p 3000:3000 dhaher-terminal
 ```
-Symbols: GC=F (Gold), SI=F (Silver), CL=F (Oil)
-Data: Real-time commodity prices
-Update: Setiap menit selama jam trading
+
+## 📈 **API Usage & Limits**
+
+### 🆓 **Free Tier Limits**
+| Service | Requests | Rate Limit | Features |
+|---------|----------|------------|----------|
+| CoinGecko | Unlimited | 10-50/min | Crypto data |
+| Yahoo Finance | Unlimited | 100/min | Stocks, indices |  
+| Exchange Rates | 1500/month | 10/min | Currency data |
+| Twelve Data | 800/day | 8/min | Forex, stocks |
+| NewsAPI | 1000/month | 100/day | Financial news |
+
+### 🔄 **Automatic Failover**
+The system automatically switches between data sources if one becomes unavailable:
+
+```
+Primary API → Secondary API → Cached Data → Mock Data
 ```
 
-### Forex (Alpha Vantage + Exchange Rates)
+## 🤝 **Contributing**
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### 🐛 **Bug Reports**
+- Use GitHub Issues with the bug template
+- Include steps to reproduce
+- Provide browser/OS information
+
+### ✨ **Feature Requests**  
+- Use GitHub Issues with the feature template
+- Describe the use case and expected behavior
+- Consider implementation complexity
+
+### 🔧 **Development Setup**
+```bash
+# Fork and clone the repo
+git clone https://github.com/yourusername/dhaher-terminal-pro.git
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Run tests
+npm test
 ```
-Alpha Vantage: Major pairs dengan demo key
-Exchange Rates API: Current exchange rates
-Update: Real-time (dengan cache 5 menit)
-```
 
-## Performance & Optimization
+## 📄 **License**
 
-- **Caching**: 5 menit cache untuk mengurangi API calls
-- **Fallback**: Mock data jika semua API gagal
-- **Error Handling**: Graceful degradation
-- **Loading States**: User-friendly loading indicators
+MIT License - see [LICENSE](LICENSE) for details.
 
-## Deployment
+## 🙏 **Acknowledgments**
 
-Aplikasi siap deploy di Replit tanpa konfigurasi tambahan. Semua API yang digunakan adalah publik dan gratis.
+- **Bloomberg Terminal** - UI/UX inspiration
+- **TradingView** - Chart integration
+- **React Community** - Amazing ecosystem
+- **Open Source** - All the amazing libraries we use
 
-## Contributing
+## 📞 **Support & Contact**
 
-1. Fork repository
-2. Buat feature branch
-3. Commit changes
-4. Push ke branch
-5. Create Pull Request
-
-## License
-
-MIT License - lihat file LICENSE untuk detail.
+- 📧 **Email**: support@dhaher.pro
+- 💬 **Discord**: [Join our community](https://discord.gg/dhaher)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/yourusername/dhaher-terminal-pro/issues)
+- 📚 **Docs**: [Full Documentation](https://docs.dhaher.pro)
 
 ---
 
-**Note**: Aplikasi ini menggunakan API gratis yang mungkin memiliki rate limits. Untuk production usage, pertimbangkan upgrade ke paid tiers dari provider API.
+**Made with ❤️ by Mulky Malikul Dhaher**  
+*Empowering traders with professional-grade tools* 🇮🇩
 
-Dibuat dengan ❤️ oleh Mulky Malikul Dhaher
-dari Indonesia 🇮🇩
+⭐ **Star this repo** if you find it useful!
+
+---
+
+## 🔮 **Roadmap v2.1**
+
+- 🤖 **AI Trading Bot** integration
+- 📊 **Advanced Analytics** dashboard  
+- 🔗 **Broker Integration** for live trading
+- 📱 **Mobile App** (React Native)
+- 🌍 **Multi-language** support
+- 🔐 **Advanced Security** features
+
+---
+
+*Last updated: January 2025*

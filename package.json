@@ -32,6 +32,7 @@
     "finnhub": "^1.2.19",
     "framer-motion": "^12.19.1",
     "i18next": "^25.2.1",
+    "immer": "^10.1.1",
     "lightweight-charts": "^5.0.7",
     "lucide-react": "^0.510.0",
     "react": "^19.0.0",
@@ -46,7 +47,7 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "websocket": "^1.0.35",
-    "zustand": "^5.0.1"
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
     "@getmocha/vite-plugins": "latest",
@@ -54,8 +55,8 @@
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/node": "^22.9.0",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
     "@vitejs/plugin-react": "^4.3.1",

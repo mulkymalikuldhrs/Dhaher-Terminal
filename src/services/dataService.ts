@@ -8,6 +8,25 @@ import { toast } from 'react-toastify';
 const dataCache: Record<string, { data: any, timestamp: number }> = {};
 const CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes cache
 
+// Temporary re-exported types for compatibility with marketStore (v2.0) branch
+export type MarketData = any;
+export type NewsItem = any;
+export type EconomicEvent = any;
+export type SentimentData = any;
+export type OHLCData = any;
+
+export const dataService = {
+  getCryptoData: async (..._args: any[]) => [],
+  getForexData: async (..._args: any[]) => [],
+  getIndicesData: async (..._args: any[]) => [],
+  getCommoditiesData: async (..._args: any[]) => [],
+  getHistoricalData: async (..._args: any[]) => [],
+  getMarketNews: async (..._args: any[]) => [],
+  getEconomicEvents: async (..._args: any[]) => [],
+  getSentimentData: async (..._args: any[]) => [],
+  clearCache: () => {}
+};
+
 // Fetch assets by category
 export const fetchAssets = async (category: AssetCategory | 'all'): Promise<Asset[]> => {
   try {

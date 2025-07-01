@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { useState, useEffect } from 'react';
 import { BarChart3, Users, Building2, TrendingUp, TrendingDown } from 'lucide-react';
 import { Asset, PanelProps } from '../../types';

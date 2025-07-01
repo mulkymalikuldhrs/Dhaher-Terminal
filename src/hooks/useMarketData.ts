@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Asset, AssetCategory } from '../types';
 import { fetchAssets, fetchChartData, fetchSignals, fetchMarketSentiment } from '../services/dataService';
+import { realTimeDataService } from '../services/realTimeDataService';
 import { toast } from 'react-toastify';
 
 export const useMarketData = (category: AssetCategory | 'all' = 'all') => {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
 
   // Fetch assets based on category
   useEffect(() => {
@@ -16,6 +18,7 @@ export const useMarketData = (category: AssetCategory | 'all' = 'all') => {
         const data = await fetchAssets(category);
         setAssets(data);
         setError(null);
+        setLastUpdate(new Date());
       } catch (err) {
         console.error('Error fetching market data:', err);
         setError('Failed to fetch market data');
@@ -48,7 +51,41 @@ export const useMarketData = (category: AssetCategory | 'all' = 'all') => {
     return () => clearInterval(intervalId);
   }, [category]);
 
-  return { assets, loading, error };
+  // Set up real-time updates for individual assets
+  useEffect(() => {
+    if (assets.length === 0) return;
+    
+    const subscriptions: (() => void)[] = [];
+
+    // Subscribe to real-time updates for current assets
+    assets.forEach(asset => {
+      const unsubscribe = realTimeDataService.subscribe(asset.id, (update) => {
+        setAssets(prevAssets => 
+          prevAssets.map(a => 
+            a.id === update.assetId 
+              ? { 
+                  ...a, 
+                  price: update.price, 
+                  change: update.change, 
+                  changePercent: update.changePercent,
+                  volume: update.volume 
+                }
+              : a
+          )
+        );
+        setLastUpdate(new Date());
+      });
+
+      subscriptions.push(unsubscribe);
+    });
+
+    // Cleanup subscriptions
+    return () => {
+      subscriptions.forEach(unsubscribe => unsubscribe());
+    };
+  }, [assets.map(a => a.id).join(',')]); // Re-subscribe when asset IDs change
+
+  return { assets, loading, error, lastUpdate };
 };
 
 export const useChartData = (assetId: string, timeframe: '1m' | '5m' | '15m' | '1h' | '4h' | '1d' = '1d') => {

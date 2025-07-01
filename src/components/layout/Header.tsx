@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Activity, Globe, Info, Menu, Moon, Search, Settings, Sun, Terminal, User } from 'lucide-react';
+import { Activity, Globe, Info, Menu, Moon, Search, Settings, Sun, Terminal, User, LogIn, LogOut } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import NotificationPanel from '../notifications/NotificationPanel';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Header() {
+  const { isAuthenticated, user, login, logout } = useAuth();
   const [time, setTime] = useState(new Date());
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [language, setLanguage] = useState<'en' | 'id'>('en');
   const [command, setCommand] = useState('');
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [marketData, setMarketData] = useState([
     { symbol: 'EURUSD', price: 1.0865, change: +0.0023 },
     { symbol: 'USDJPY', price: 107.25, change: -0.15 },
@@ -96,12 +99,110 @@ export default function Header() {
               <Activity size={16} />
             </button>
             <NotificationPanel />
-            <button className="p-1.5 hover:bg-[#2d5986] text-[#8da2c0]" title="Settings">
+            <button 
+              onClick={() => window.open('mailto:mulkymalikuldhr@mail.com', '_blank')}
+              className="p-1.5 hover:bg-[#2d5986] text-[#8da2c0]" 
+              title="Contact: mulkymalikuldhr@mail.com"
+            >
               <Settings size={16} />
             </button>
-            <button className="p-1.5 hover:bg-[#2d5986] text-[#8da2c0]" title="User Profile">
-              <User size={16} />
-            </button>
+            
+            {/* Authentication Section */}
+            {isAuthenticated ? (
+              <div className="relative">
+                <button 
+                  className="flex items-center space-x-2 p-1.5 hover:bg-[#2d5986] text-[#8da2c0]"
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  title={`Logged in as ${user?.name || user?.login}`}
+                >
+                  {user?.avatar_url ? (
+                    <img 
+                      src={user.avatar_url} 
+                      alt={user.name || user.login}
+                      className="w-4 h-4 rounded-full"
+                    />
+                  ) : (
+                    <User size={16} />
+                  )}
+                  {!showUserMenu && (
+                    <span className="hidden md:block text-xs font-mono">
+                      {user?.login}
+                    </span>
+                  )}
+                </button>
+                
+                {showUserMenu && (
+                  <div className="absolute right-0 top-full mt-1 w-64 bg-[#1a2437] border border-[#2c3645] shadow-lg z-50">
+                    <div className="p-3 border-b border-[#2c3645]">
+                      <div className="flex items-center space-x-3">
+                        {user?.avatar_url && (
+                          <img 
+                            src={user.avatar_url} 
+                            alt={user.name || user.login}
+                            className="w-10 h-10 rounded-full"
+                          />
+                        )}
+                        <div>
+                          <div className="text-white font-semibold text-sm">
+                            {user?.name || user?.login}
+                          </div>
+                          <div className="text-[#8da2c0] text-xs">
+                            @{user?.login}
+                          </div>
+                          {user?.location && (
+                            <div className="text-[#8da2c0] text-xs">
+                              📍 {user.location}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {user?.bio && (
+                        <div className="text-[#8da2c0] text-xs mt-2">
+                          {user.bio}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="p-2">
+                      <div className="grid grid-cols-3 gap-2 text-center text-xs text-[#8da2c0] mb-2">
+                        <div>
+                          <div className="font-mono text-white">{user?.public_repos || 0}</div>
+                          <div>Repos</div>
+                        </div>
+                        <div>
+                          <div className="font-mono text-white">{user?.followers || 0}</div>
+                          <div>Followers</div>
+                        </div>
+                        <div>
+                          <div className="font-mono text-white">{user?.following || 0}</div>
+                          <div>Following</div>
+                        </div>
+                      </div>
+                      
+                      <button 
+                        onClick={() => {
+                          logout();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full flex items-center space-x-2 px-3 py-2 text-xs hover:bg-[#2d5986] text-[#8da2c0]"
+                      >
+                        <LogOut size={14} />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button 
+                onClick={login}
+                className="flex items-center space-x-1 px-2 py-1.5 hover:bg-[#2d5986] text-[#8da2c0] text-xs"
+                title="Sign in with GitHub"
+              >
+                <LogIn size={14} />
+                <span className="hidden md:block">Sign In</span>
+              </button>
+            )}
           </div>
         </div>
       </header>

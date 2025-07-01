@@ -7,6 +7,9 @@ import SignalsPanel from '../panels/SignalsPanel';
 import SentimentPanel from '../panels/SentimentPanel';
 import MarketStructurePanel from '../panels/MarketStructurePanel';
 import HeatmapPanel from '../panels/HeatmapPanel';
+import EconomicCalendarPanel from '../panels/EconomicCalendarPanel';
+import COTPanel from '../panels/COTPanel';
+import OrderFlowPanel from '../panels/OrderFlowPanel';
 import { Asset, AssetCategory } from '../../types';
 
 interface PanelGridProps {
@@ -39,8 +42,22 @@ export default function PanelGrid({ panels, assets, onRemovePanel, selectedCateg
         return <MarketStructurePanel {...commonProps} />;
       case 'heatmap':
         return <HeatmapPanel {...commonProps} />;
+      case 'economic_calendar':
+        return <EconomicCalendarPanel {...commonProps} />;
+      case 'cot':
+        return <COTPanel {...commonProps} />;
+      case 'orderflow':
+        return <OrderFlowPanel {...commonProps} />;
       default:
-        return <div>Unknown panel type</div>;
+        return (
+          <div className="h-full flex items-center justify-center bloomberg-panel">
+            <div className="text-center text-gray-500">
+              <div className="text-lg mb-2">🚧</div>
+              <div>Panel type "{panel.type}" not implemented yet</div>
+              <div className="text-xs mt-1">Coming soon...</div>
+            </div>
+          </div>
+        );
     }
   };
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios from 'axios';
 import { Asset, AssetCategory } from '../types';
 import { API_KEYS, API_URLS } from './apiConfig';

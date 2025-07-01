@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 # 🚀 Dhaher Terminal Pro v2.0 - Advanced Trading Terminal
 
 **Professional Bloomberg-style trading dashboard with AI-powered analytics and real-time market data**
+=======
+# Dhaher Terminal - Bloomberg-Style Trading Dashboard
+>>>>>>> main
 
 > 🎯 **Major Upgrade Complete!** - Now featuring enhanced API integrations, modern React architecture, and advanced trading tools.
 
+<<<<<<< HEAD
 ## ✨ What's New in v2.0
 
 ### 🏗️ **Complete Architecture Overhaul**
@@ -19,6 +24,26 @@
 - **Real-time WebSocket** connections
 - **Smart Data Aggregation** from 10+ sources
 - **Historical Data** with multiple timeframes
+=======
+**Dibuat oleh [Mulky Malikul Dhaher](mailto:mulkymalikuldhr@mail.com) di Indonesia dengan ❤️**
+
+> "Democratizing professional trading tools for everyone"
+
+## Fitur Utama
+
+### 📊 Real-Time Market Data
+- Multi-asset trading dashboard (Forex, Crypto, Commodities, Indices)
+- Chart candlestick dengan timeframe multiple (1m, 5m, 15m, 1h, 4h, 1d)
+- Data harga real-time dari API publik gratis
+- NEW: Order Flow / Cluster Delta heatmap untuk memvisualisasikan delta bid-ask di setiap level harga
+
+### 📈 Analisis Profesional
+- COT (Commitment of Traders) analysis
+- Smart Money Concepts (SMC) analysis
+- Market structure analysis dengan bias detection
+- Order Flow (Cluster Delta) untuk menganalisis tekanan beli vs jual secara granular
+- Economic calendar integration
+>>>>>>> main
 
 ### 🤖 **AI-Powered Features**
 - **Intelligent Signal Generation** with confidence scoring
@@ -26,7 +51,16 @@
 - **Pattern Recognition** for market structure analysis
 - **Risk Assessment** with dynamic alerts
 
+<<<<<<< HEAD
 ### 🔌 **Enhanced API Integrations**
+=======
+### 🎯 Trading Tools
+- Retail sentiment tracking
+- Institutional positioning analysis
+- Market heatmap visualization
+- Order Flow Cluster Delta panel (mirip footprint chart) untuk semua aset
+- Multi-panel workspace seperti Bloomberg Terminal
+>>>>>>> main
 
 #### Primary Data Sources (All Free Tier)
 - **CoinGecko** - Cryptocurrency data (10-50 calls/min)
@@ -35,11 +69,21 @@
 - **Exchange Rates API** - Currency data (1500 calls/month)
 - **Binance** - Crypto market data & WebSocket feeds
 
+<<<<<<< HEAD
 #### Advanced Data Sources
 - **Fear & Greed Index** - Market sentiment indicators
 - **Economic Calendar** - Major economic events
 - **NewsAPI** - Financial news with sentiment analysis
 - **Reddit/Social** - Social sentiment tracking
+=======
+### API Gratis yang Digunakan
+- **CoinGecko API**: Cryptocurrency market data (gratis, tanpa API key)
+- **Yahoo Finance API**: Stock indices dan commodity data (gratis, tanpa API key)
+- **Alpha Vantage API**: Forex data dengan demo key (gratis dengan limit)
+- **Exchange Rates API**: Currency exchange rates (gratis, tanpa API key)
+- **NewsAPI**: Economic news (gratis dengan API key)
+- **Binance Aggregated Trades (WebSocket)**: Sumber volume order flow (hanya pair crypto populer)
+>>>>>>> main
 
 ### 🏪 **Professional Trading Panels**
 
@@ -50,11 +94,20 @@
 - **Support/Resistance** detection
 - **Volume Profile** analysis
 
+<<<<<<< HEAD
 #### 📋 **Enhanced Watchlist**
 - **Dynamic Asset Discovery** across all markets
 - **Custom Alerts** with WhatsApp integration  
 - **Performance Metrics** and statistics
 - **Correlation Analysis** between assets
+=======
+- **Frontend**: React + TypeScript + Vite
+- **Styling**: Tailwind CSS
+- **Charts**: Lightweight Charts (TradingView) + Custom Order Flow Heatmap (Tailwind CSS)
+- **State Management**: React Hooks
+- **Notifications**: React Toastify
+- **HTTP Client**: Axios
+>>>>>>> main
 
 #### 🧠 **Market Sentiment Dashboard**
 - **Fear & Greed Index** tracking
@@ -164,6 +217,25 @@ VITE_TWELVE_DATA_KEY=your_free_key_here
 
 ### 🔄 **Data Flow Architecture**
 
+<<<<<<< HEAD
+=======
+### 📈 Institutional Analysis
+- COT (Commitment of Traders) data simulation
+- Smart Money Concepts analysis
+- Retail vs Institutional sentiment
+- Market bias detection
+- Order Flow Delta analysis untuk mendeteksi imbalance di bid/ask
+
+### 🔍 Market Monitoring
+- Real-time watchlist dari API gratis
+- Economic calendar integration
+- Market sentiment analysis
+- Signal generation dan alerts
+
+## Data Sources Detail
+
+### Cryptocurrency (CoinGecko)
+>>>>>>> main
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Data Sources  │───▶│  Data Service   │───▶│  Zustand Store  │
@@ -274,6 +346,7 @@ docker run -p 3000:3000 dhaher-terminal
 
 ## 📈 **API Usage & Limits**
 
+<<<<<<< HEAD
 ### 🆓 **Free Tier Limits**
 | Service | Requests | Rate Limit | Features |
 |---------|----------|------------|----------|
@@ -282,6 +355,13 @@ docker run -p 3000:3000 dhaher-terminal
 | Exchange Rates | 1500/month | 10/min | Currency data |
 | Twelve Data | 800/day | 8/min | Forex, stocks |
 | NewsAPI | 1000/month | 100/day | Financial news |
+=======
+- **Caching**: 5 menit cache untuk mengurangi API calls
+- **Lazy Loading**: Panel Order Flow akan memuat data hanya saat dibuka untuk efisiensi
+- **Fallback**: Mock data jika semua API gagal
+- **Error Handling**: Graceful degradation
+- **Loading States**: User-friendly loading indicators
+>>>>>>> main
 
 ### 🔄 **Automatic Failover**
 The system automatically switches between data sources if one becomes unavailable:
@@ -339,6 +419,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
+<<<<<<< HEAD
 **Made with ❤️ by Mulky Malikul Dhaher**  
 *Empowering traders with professional-grade tools* 🇮🇩
 
@@ -358,3 +439,27 @@ MIT License - see [LICENSE](LICENSE) for details.
 ---
 
 *Last updated: January 2025*
+=======
+## Pembuat
+
+**Mulky Malikul Dhaher**  
+🇮🇩 Indonesia  
+📧 [mulkymalikuldhr@mail.com](mailto:mulkymalikuldhr@mail.com)  
+🐙 [GitHub](https://github.com/mulkymalikuldhrs)
+
+Dibuat dengan cinta dan dedikasi untuk memberdayakan trader Indonesia dengan tools profesional yang mudah diakses.
+
+---
+
+**Note**: Aplikasi ini menggunakan API gratis yang mungkin memiliki rate limits. Untuk production usage, pertimbangkan upgrade ke paid tiers dari provider API.
+
+## Dukungan
+
+Jika Anda merasa terbantu dengan aplikasi ini, silakan:
+- ⭐ Star repository ini
+- 🍴 Fork untuk kontribusi
+- 🐛 Report bugs melalui GitHub Issues
+- 💡 Saran fitur melalui GitHub Discussions
+
+**Made with ❤️ in Indonesia**
+>>>>>>> main

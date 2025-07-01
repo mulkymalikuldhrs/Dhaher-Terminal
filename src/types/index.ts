@@ -65,6 +65,7 @@ export type PanelType =
   | 'signals' 
   | 'market_structure'
   | 'economic_calendar'
+  | 'orderflow'
   | 'news';
 
 export interface PanelProps {

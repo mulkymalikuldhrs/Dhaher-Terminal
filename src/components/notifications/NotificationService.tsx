@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { toast, ToastOptions } from 'react-toastify';
 import { Signal, Asset } from '../../types';

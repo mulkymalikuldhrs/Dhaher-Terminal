@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 // Enhanced Dashboard for Dhaher Terminal Pro v2.0
 // Complete Bloomberg-style trading terminal with advanced features
 
+=======
+// @ts-nocheck
+>>>>>>> main
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ToastContainer, toast } from 'react-toastify';
@@ -28,6 +32,7 @@ import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import PanelGrid from '../components/layout/PanelGrid';
 import { useNotifications } from '../components/notifications/NotificationService';
+import { webNotificationService } from '../services/notificationService';
 
 // Import enhanced store
 import { 
@@ -73,6 +78,7 @@ export default function Dashboard() {
 
   // Notifications
   const { addNotification } = useNotifications();
+<<<<<<< HEAD
 
   // Initialize dashboard
   useEffect(() => {
@@ -167,13 +173,51 @@ export default function Dashboard() {
     if (signals.length > 0) {
       const latestSignal = signals[signals.length - 1];
       if (Date.now() - latestSignal.timestamp < 60000) { // If signal is less than 1 minute old
+=======
+  const { assets, loading, error } = useMarketData(selectedCategory);
+  
+  // Initialize push notifications on mount
+  useEffect(() => {
+    const initNotifications = async () => {
+      const granted = await webNotificationService.requestPermission();
+      if (granted) {
+        toast.success('Push notifications enabled! You will receive real-time alerts.', {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
+    };
+    
+    initNotifications();
+  }, []);
+
+  // Simulate real-time market updates with push notifications
+  useEffect(() => {
+    const marketUpdateInterval = setInterval(() => {
+      // Simulate occasional market update
+      if (Math.random() > 0.85 && assets.length > 0) {
+        const asset = assets[Math.floor(Math.random() * assets.length)];
+        const changeType = Math.random() > 0.5 ? 'rise' : 'fall';
+        const changePercent = (Math.random() * 2).toFixed(2);
+        
+        // Send in-app notification
+>>>>>>> main
         addNotification({
           type: 'signal',
           title: `${latestSignal.type.toUpperCase()} Signal: ${latestSignal.symbol}`,
           message: `${latestSignal.reason} | Confidence: ${latestSignal.confidence}%`,
           priority: latestSignal.strength === 'strong' ? 'high' : 'medium'
         });
+        
+        // Send push notification to device
+        webNotificationService.sendPriceAlert({
+          symbol: asset.symbol,
+          price: asset.price,
+          change: changeType === 'rise' ? parseFloat(changePercent) : -parseFloat(changePercent),
+          changePercent: changeType === 'rise' ? parseFloat(changePercent) : -parseFloat(changePercent)
+        });
       }
+<<<<<<< HEAD
     }
   }, [signals, addNotification]);
 
@@ -201,6 +245,58 @@ export default function Dashboard() {
   // Market data monitoring for significant moves
   useEffect(() => {
     const allData = [...cryptoData, ...forexData, ...indicesData, ...commoditiesData];
+=======
+      
+      // Generate trading signals
+      if (Math.random() > 0.92 && assets.length > 0) {
+        const asset = assets[Math.floor(Math.random() * assets.length)];
+        const signalType = Math.random() > 0.5 ? 'buy' : 'sell';
+        const strength = Math.random() > 0.7 ? 'strong' : Math.random() > 0.4 ? 'medium' : 'weak';
+        const reasons = [
+          'SMC BOS + OB Confluence',
+          'Liquidity Sweep Detected',
+          'COT Institutional Bias',
+          'Support/Resistance Break',
+          'Order Block Reaction'
+        ];
+        const reason = reasons[Math.floor(Math.random() * reasons.length)];
+        
+        // Send signal notification
+        webNotificationService.sendSignalNotification({
+          symbol: asset.symbol,
+          type: signalType,
+          price: asset.price,
+          reason,
+          strength: strength as 'weak' | 'medium' | 'strong'
+        });
+        
+        addNotification({
+          type: 'signal',
+          title: `${signalType.toUpperCase()} Signal: ${asset.symbol}`,
+          message: `${reason} - Strength: ${strength.toUpperCase()}`
+        });
+      }
+      
+      // Generate news notifications
+      if (Math.random() > 0.95) {
+        const newsItems = [
+          { title: 'Fed Meeting Minutes Released', impact: 'high', currencies: ['USD'] },
+          { title: 'ECB Policy Decision', impact: 'high', currencies: ['EUR'] },
+          { title: 'GDP Data Released', impact: 'medium', currencies: ['USD', 'EUR'] },
+          { title: 'Employment Report', impact: 'high', currencies: ['USD'] },
+          { title: 'Inflation Data', impact: 'medium', currencies: ['USD', 'EUR', 'GBP'] }
+        ];
+        const news = newsItems[Math.floor(Math.random() * newsItems.length)];
+        
+        webNotificationService.sendNewsNotification({
+          title: news.title,
+          summary: `Market moving event detected. Check your positions for ${news.currencies.join(', ')} exposure.`,
+          impact: news.impact as 'low' | 'medium' | 'high',
+          currency: news.currencies.join(', ')
+        });
+      }
+    }, 45000); // Check every 45 seconds
+>>>>>>> main
     
     allData.forEach(item => {
       if (Math.abs(item.changePercent) > 5) {
@@ -286,8 +382,37 @@ export default function Dashboard() {
     } as Panel;
 
     setPanels([...panels, newPanel]);
+<<<<<<< HEAD
     toast.success(`${panelConfig.title} panel added`);
     setIsControlPanelOpen(false);
+=======
+    toast.success('New panel added');
+  };
+  
+  const sendWhatsAppNotification = () => {
+    // This would normally integrate with WhatsApp API
+    // For demo purposes, we'll just show a toast and send push notification
+    toast.info('Signal sent to WhatsApp', {
+      icon: '📱'
+    });
+    
+    // Send a demo trading signal
+    webNotificationService.sendSignalNotification({
+      symbol: 'EUR/USD',
+      type: 'buy',
+      price: 1.0876,
+      reason: 'Manual Signal - BOS + OB Confluence',
+      strength: 'strong'
+    });
+  };
+
+  const testNotifications = async () => {
+    await webNotificationService.sendTestNotification();
+    toast.success('Test notification sent!', {
+      position: "bottom-right",
+      autoClose: 2000,
+    });
+>>>>>>> main
   };
 
   const handleToggleLiveUpdates = () => {
@@ -373,6 +498,7 @@ export default function Dashboard() {
         </div>
       </div>
       
+<<<<<<< HEAD
       {/* Enhanced Bloomberg-style status footer */}
       <div className="py-2 px-4 border-t border-[#2c3645] bg-[#111827]">
         <div className="flex justify-between items-center text-xs font-mono">
@@ -436,6 +562,32 @@ export default function Dashboard() {
           whileTap={{ scale: 0.9 }}
           onClick={sendWhatsAppSignal}
           className="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center shadow-lg border border-[#2c3645]"
+=======
+      {/* Bloomberg-style command footer */}
+      <div className="py-1 px-2 border-t border-[#2c3645] bg-[#111827]">
+        <div className="flex justify-between items-center">
+          <div className="text-[10px] text-[#8da2c0] font-mono">DHAHER TERMINAL PRO v1.0.5 | ALPHA VANTAGE API: ACTIVE | API KEY: QHZW****</div>
+          <div className="text-[10px] text-[#8da2c0] font-mono">© 2025 MULKY MALIKUL DHAHER | mulkymalikuldhr@mail.com</div>
+          <div className="text-[10px] text-[#8da2c0] font-mono">STATUS: <span className="text-[#00873c]">CONNECTED</span> | LAST UPDATE: {new Date().toLocaleTimeString()}</div>
+        </div>
+      </div>
+      
+      <div className="fixed bottom-6 right-6 flex flex-col space-y-2">
+        <button 
+          onClick={testNotifications}
+          className="w-10 h-10 bg-[#d4ac0d] text-white flex items-center justify-center shadow-lg border border-[#2c3645] hover:bg-[#e4bc1d] transition-colors"
+          title="Test Push Notifications"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+          </svg>
+        </button>
+        
+        <button 
+          onClick={sendWhatsAppNotification}
+          className="w-10 h-10 bg-[#00873c] text-white flex items-center justify-center shadow-lg border border-[#2c3645] hover:bg-[#059942] transition-colors"
+>>>>>>> main
           title="Send Signal to WhatsApp"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -443,6 +595,7 @@ export default function Dashboard() {
           </svg>
         </motion.button>
         
+<<<<<<< HEAD
         {/* Control panel toggle */}
         <motion.button 
           whileHover={{ scale: 1.1 }}
@@ -450,10 +603,17 @@ export default function Dashboard() {
           onClick={() => setIsControlPanelOpen(!isControlPanelOpen)}
           className="w-12 h-12 bg-[#3a7ca5] text-white rounded-full flex items-center justify-center shadow-lg border border-[#2c3645]"
           title="Panel Controls"
+=======
+        <button 
+          onClick={addNewPanel}
+          className="w-10 h-10 bg-[#3a7ca5] text-white flex items-center justify-center shadow-lg border border-[#2c3645] hover:bg-[#4a8cb5] transition-colors"
+          title="Add New Panel"
+>>>>>>> main
         >
           <Plus size={20} />
         </motion.button>
         
+<<<<<<< HEAD
         {/* Settings */}
         <motion.button 
           whileHover={{ scale: 1.1 }}
@@ -463,6 +623,32 @@ export default function Dashboard() {
         >
           <Settings size={20} />
         </motion.button>
+=======
+        <button 
+          onClick={addNewEconomicCalendarPanel}
+          className="w-10 h-10 bg-[#8b5cf6] text-white flex items-center justify-center shadow-lg border border-[#2c3645] hover:bg-[#9b6cf6] transition-colors"
+          title="Add Economic Calendar"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </button>
+        
+        <button 
+          onClick={addNewCOTPanel}
+          className="w-10 h-10 bg-[#f59e0b] text-white flex items-center justify-center shadow-lg border border-[#2c3645] hover:bg-[#f5a50b] transition-colors"
+          title="Add COT Analysis"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="20" x2="12" y2="10"></line>
+            <line x1="18" y1="20" x2="18" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="16"></line>
+          </svg>
+        </button>
+>>>>>>> main
       </div>
 
       {/* Control Panel */}

@@ -55,6 +55,7 @@ export const API_URLS = {
   EXCHANGE_RATES: "https://api.exchangerate-api.com/v4/latest",
   FIXER: "https://api.fixer.io/latest",
   CURRENCYLAYER: "https://api.currencylayer.com/live",
+<<<<<<< HEAD
   
   // Alternative Data Sources
   YAHOO_FINANCE: "https://query1.finance.yahoo.com/v8/finance/chart",
@@ -73,6 +74,14 @@ export const API_URLS = {
   COINBASE: "https://api.coinbase.com/v2",
   BINANCE: "https://api.binance.com/api/v3",
   COINGLASS: "https://open-api.coinglass.com/public/v2"
+=======
+  POLYGON: "https://api.polygon.io",
+  YAHOO_FINANCE_PROXY: "https://query1.finance.yahoo.com/v8/finance/chart",
+  TWELVE_DATA: "https://api.twelvedata.com",
+  CFTC_COT: "https://publicreporting.cftc.gov/resource",
+  FOREX_FACTORY: "https://nfs.faireconomy.media/ff_calendar_thisweek.json",
+  ECONOMIC_CALENDAR: "https://api.forexfactory.com/calendar"
+>>>>>>> main
 };
 
 // Enhanced WebSocket URLs
